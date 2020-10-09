@@ -1,0 +1,52 @@
+{%	extends	"shop/base.html"	%}
+{%	load	static	%}
+{%	block	title	%}
+		{%	if	category	%}{{	category.name	}}{%	else	%}Products{%	endif	%}
+{%	endblock	%}
+{%	block	content	%}
+        <div class="d-flex  float-left row">
+        	<div class="card  col-sm" >
+			  <div class="card-body" style="width: 14rem;">
+			    <h3 class="card-title card-header">Categories</h3>
+			    <br>
+			    <h6 class="card-subtitle mb-2 text-muted"><ul>
+						<li	{%	if	not	category	%}class="selected"{%	endif	%}>
+								<a	href="{%	url	'shop:product_list'	%}">All</a>
+						</li>
+						{%	for	c	in	categories	%}
+								<li	{%	if	category.slug	==	c.slug	%}class="selected"
+								{%	endif	%}>
+										<a	href="{{	c.get_absolute_url	}}">{{	c.name	}}</a>
+								</li>
+						{%	endfor	%}
+				</ul></h6>
+			   
+			  </div>
+			</div>
+
+		
+    <div	id="main"	class="product-list ">
+		<div class="ml-3"><h1>{%	if	category	%}{{	category.name	}}{%	else	%}Products
+		{%	endif	%}</h1>
+	</div>
+	 <div	id="main"	class="product-list card-deck ml-3 " style="max-width: 66rem;">
+    
+		{%	for	product	in	products	%}
+		
+		<div class="card ml-2 mb-3 col-sm" style="min-width: 13rem;max-width: 18rem" class="item">
+        <a	href="{{	product.get_absolute_url	}}">
+        <img class="card-img-top" src="{%	if	product.image	%}{{	product.image.url	}}{%	endif	%}" alt="Card image cap">
+        </a>
+        <div class="card-body">
+        	<a	href="{{	product.get_absolute_url	}}">{{	product.name	}}</a>
+								<br>
+								Rs {{	product.price	}}
+       
+        </div>
+        </div>
+        
+        {%	endfor	%}
+		</div>
+	</div>
+	</div>
+{%	endblock	%}

@@ -1,0 +1,47 @@
+{%	extends	"shop/base.html"	%}
+{%	block	title	%}
+		Checkout
+{%	endblock	%}
+{%	block	content	%}
+<head>
+	<style type="text/css">
+		input{
+			display: block;
+    width: 50%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-left: 2rem;
+		}
+		label{
+			margin-left: 2rem;
+		}
+	</style>
+</head>
+		<h1>Checkout</h1>
+		<div	class="order-info ml-2 text-danger">
+				<h3 >Your	order</h3>
+				<ul>
+						{%	for	item	in	cart	%}
+								<li>
+										{{	item.quantity	}} x	{{	item.product.name	}}
+										<span>Rs {{	item.total_price	}}</span>
+								</li>
+						{%	endfor	%}
+				</ul>
+				<p class="ml-2 font-weight-bold">Total:	Rs {{	cart.get_total_price	}}</p>
+		</div>
+		<form	action="."	method="post"	class="order-form ">
+			<div class="form-group">
+				{{	form.as_p	}}
+				<p><input	type="submit"	value="Place	order" class="btn btn-success"></p>
+				{%	csrf_token	%}
+		</div>
+		</form>
+{%	endblock	%}
